@@ -70,7 +70,8 @@
 
                 <tr>
                     <td>Email</td>
-                    <td><input type="text" id="email" required></td>
+                    <td><input type="email" id="email" required></td>
+
                 </tr>
 
                 <tr>
@@ -100,53 +101,61 @@
             </table>
         </section>
     </section>
+
     <script>
-        const form = document.getElementById("userform")
-        const table = document.getElementById("tabledata").getElementsByTagName("tbody")[0]
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const form = document.getElementById("userform")
+            const table = document.getElementById("tabledata").getElementsByTagName("tbody")[0]
 
 
-        form.addEventListener("submit", (event) => {
-            event.preventDefault();
-            const name = document.getElementById("name").value
-            const age = document.getElementById("age").value
-            const gender = document.querySelector('input[name="gender"]:checked').value
-            const course = document.querySelector('select').value
-            const email = document.getElementById("email").value
+            form.addEventListener("submit", (event) => {
+                event.preventDefault();
 
-            addrow(name, age, gender, course, email)
+                const name = document.getElementById("name").value
+                const age = document.getElementById("age").value
+                const gender = document.querySelector('input[name="gender"]:checked').value
+                const course = document.querySelector('select').value
+                const email = document.getElementById("email").value
 
 
-        });
+                addrow(name, age, gender, course, email)
 
-        const addrow = (name, age, gender, course, email) => {
-            console.log(name, age, gender, course, email)
+            });
 
-            const newrow = table.insertRow()
+            const addrow = (name, age, gender, course, email) => {
+                console.log(name, age, gender, course, email)
 
-            newrow.insertCell(0).textContent = name
-            newrow.insertCell(1).textContent = age
-            newrow.insertCell(2).textContent = gender
-            newrow.insertCell(3).textContent = course
-            newrow.insertCell(4).textContent = email
+                const newrow = table.insertRow()
 
-            const actioncell = newrow.insertCell(5)
+                newrow.insertCell(0).textContent = name
+                newrow.insertCell(1).textContent = age
+                newrow.insertCell(2).textContent = gender
+                newrow.insertCell(3).textContent = course
+                newrow.insertCell(4).textContent = email
 
-            const deletebtn = document.createElement("button")
-            deletebtn.textContent = "Delete"
-            deletebtn.style.backgroundColor = "red"
+                const actioncell = newrow.insertCell(5)
 
-            deletebtn.onclick = () => {
-                const clickindex = newrow.rowIndex - 1
-                table.deleteRow(clickindex )
+                const deletebtn = document.createElement("button")
+                deletebtn.textContent = "Delete"
+                deletebtn.style.backgroundColor = "red"
+
+                deletebtn.onclick = () => {
+                    const clickindex = newrow.rowIndex - 1
+                    table.deleteRow(clickindex)
+                }
+
+
+
+                actioncell.appendChild(deletebtn)
+
+                form.reset()
+
             }
-           
 
+        })
 
-            actioncell.appendChild(deletebtn)
-
-            form.reset()
-
-        }
 
     </script>
 </body>
