@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Form</title>
+</head>
+
+<style>
+    .student-container {
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    td,
+    th {
+        border: 1px solid black;
+        padding: 3px;
+    }
+
+    table {
+        border: 2px double;
+        text-align: center;
+    }
+
+    select {
+        width: 100%;
+    }
+
+    #savebtn {
+        background-color: green;
+        width: 100%;
+    }
+</style>
+
+<body>
+    <section class="student-container">
+
+        <h1>Student Form</h1>
+        <form id="userform">
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" id="name" required></td>
+                </tr>
+                <tr>
+                    <td>Age</td>
+                    <td><input type="number" id="age" required></td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td><input type="radio" name="gender" value="male" required>Male <input type="radio" name="gender"
+                            value="female" required>Female</td>
+
+                </tr>
+
+                <tr>
+                    <td>Course</td>
+                    <td><select>
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="Python">Python</option>
+                            <option value="C++">C++</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Email</td>
+                    <td><input type="text" id="email" required></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2"><button id="savebtn" type="submit">Save</button></td>
+                </tr>
+            </table>
+        </form>
+
+
+        <section id="table">
+            <table id="tabledata">
+                <thead>
+                    <tr>
+                        <th>NAME</th>
+                        <th>AGE</th>
+                        <th>Gender</th>
+                        <th>Course</th>
+                        <th>Email</th>
+                        <th>Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+
+            </table>
+        </section>
+    </section>
+    <script>
+        const form = document.getElementById("userform")
+        const table = document.getElementById("tabledata").getElementsByTagName("tbody")[0]
+
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const name = document.getElementById("name").value
+            const age = document.getElementById("age").value
+            const gender = document.querySelector('input[name="gender"]:checked').value
+            const course = document.querySelector('select').value
+            const email = document.getElementById("email").value
+
+            addrow(name, age, gender, course, email)
+
+
+        });
+
+        const addrow = (name, age, gender, course, email) => {
+            console.log(name, age, gender, course, email)
+
+            const newrow = table.insertRow()
+
+            newrow.insertCell(0).textContent = name
+            newrow.insertCell(1).textContent = age
+            newrow.insertCell(2).textContent = gender
+            newrow.insertCell(3).textContent = course
+            newrow.insertCell(4).textContent = email
+
+            const actioncell = newrow.insertCell(5)
+
+            const deletebtn = document.createElement("button")
+            deletebtn.textContent = "Delete"
+            deletebtn.style.backgroundColor = "red"
+
+            deletebtn.onclick = () => {
+                const clickindex = newrow.rowIndex - 1
+                table.deleteRow(clickindex )
+            }
+           
+
+
+            actioncell.appendChild(deletebtn)
+
+            form.reset()
+
+        }
+
+    </script>
+</body>
+
+</html>
